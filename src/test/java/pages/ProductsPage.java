@@ -1,5 +1,4 @@
 package pages;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -7,10 +6,15 @@ public class ProductsPage extends BasePage {
 
     private static final By TITLE = By.cssSelector("[data-test = title]");
     private static final By CART_BUTTON = By.cssSelector(".shopping_cart_link");
-    private static final String ADD_TO_CART_PATTERN = "//*[text() = '%s']/ancestor::div[@class = 'inventory_item']//button";
+    private static final String ADD_TO_CART_PATTERN =
+            "//*[text() = '%s']/ancestor::div[@class = 'inventory_item']//button";
 
     public ProductsPage(WebDriver driver) {
         super(driver);
+    }
+
+    public void open() {
+        driver.get(BASE_URL + "inventory.html");
     }
 
     public String getTitle() {
