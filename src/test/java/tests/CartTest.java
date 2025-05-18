@@ -24,9 +24,10 @@ public class CartTest extends BaseTest {
         loginPage.login("standard_user", "secret_sauce");
         productsPage.addProduct("Sauce Labs Backpack");
         productsPage.openCart();
-        cartPage.remove();
-        Boolean isRemoved = driver.findElement(By.cssSelector("[data-test='inventory-item-name']")).isDisplayed();
-        assertTrue(isRemoved, "Товар не удален из корзины");;
+        assertTrue(cartPage.isProductInCart("Sauce Labs Backpack"),
+                "Товар не добавлен в корзину");
+        cartPage.removeProduct("Sauce Labs Backpack");
+        assertTrue(cartPage.checkEmptyState(), "Корзина не пуста");
         }
 
     @Test
