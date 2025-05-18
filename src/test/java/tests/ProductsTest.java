@@ -1,11 +1,12 @@
 package tests;
 import org.testng.annotations.Test;
-import static org.testng.Assert.assertTrue;
+import org.testng.asserts.SoftAssert;
 
 public class ProductsTest extends BaseTest{
 
     @Test
     public void addFourProductsToCart() {
+        SoftAssert softAssert = new SoftAssert();
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
         productsPage.addProduct("Sauce Labs Backpack");
@@ -13,9 +14,10 @@ public class ProductsTest extends BaseTest{
         productsPage.addProduct("Sauce Labs Bolt T-Shirt");
         productsPage.addProduct("Sauce Labs Fleece Jacket");
         productsPage.openCart();
-        assertTrue(cartPage.isProductInCart("Sauce Labs Backpack"));
-        assertTrue(cartPage.isProductInCart("Sauce Labs Bike Light"));
-        assertTrue(cartPage.isProductInCart("Sauce Labs Bolt T-Shirt"));
-        assertTrue(cartPage.isProductInCart("Sauce Labs Fleece Jacket"));
+        softAssert.assertTrue(cartPage.isProductInCart("Sauce Labs Backpack"));
+        softAssert.assertTrue(cartPage.isProductInCart("Sauce Labs Bike Light"));
+        softAssert.assertTrue(cartPage.isProductInCart("Sauce Labs Bolt T-Shirt"));
+        softAssert.assertTrue(cartPage.isProductInCart("Sauce Labs Fleece Jacket"));
+        softAssert.assertAll();
     }
 }
