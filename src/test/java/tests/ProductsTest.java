@@ -2,9 +2,14 @@ package tests;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-public class ProductsTest extends BaseTest{
+import static org.testng.Assert.assertTrue;
 
-    @Test
+public class ProductsTest extends tests.BaseTest {
+
+    @Test(testName = "Проверка добавления нескольких товаров в корзину",
+            description = "Проверка добавления 4 товаров в корзину",
+            priority = 1,
+            groups = "Products Page")
     public void addFourProductsToCart() {
         SoftAssert softAssert = new SoftAssert();
         loginPage.open();
