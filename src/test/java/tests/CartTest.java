@@ -1,11 +1,12 @@
 package tests;
-import org.openqa.selenium.By;
 import org.testng.annotations.Test;
+import pages.CartPage;
+
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 
-public class CartTest extends BaseTest {
+public class CartTest extends tests.BaseTest {
 
     @Test
     public void checkCart() {
@@ -16,9 +17,9 @@ public class CartTest extends BaseTest {
         productsPage.openCart();
         assertTrue(cartPage.isProductInCart("Sauce Labs Backpack"),
                 "Товар не добавлен в корзину");
-        }
+    }
 
-    @Test
+    @Test(testName = "Добавление товара в корзину", priority = 2, groups = "Cart Page")
     public void deleteFromCart() {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
@@ -28,9 +29,9 @@ public class CartTest extends BaseTest {
                 "Товар не добавлен в корзину");
         cartPage.removeProduct("Sauce Labs Backpack");
         assertTrue(cartPage.checkEmptyState(), "Корзина не пуста");
-        }
+    }
 
-    @Test
+    @Test(testName = "Возврат на страницу Products из корзины", priority = 2, groups = "Cart Page")
     public void checkContinueShoppingButton() {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
@@ -42,7 +43,7 @@ public class CartTest extends BaseTest {
         assertEquals(productsPage.getTitle(), "Products");
     }
 
-    @Test
+    @Test(testName = "Проверка добавленного товара по стоимости", priority = 3, groups = "Cart Page")
     public void checkAddedProductsPrice() {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
