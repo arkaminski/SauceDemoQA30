@@ -1,9 +1,5 @@
 package tests;
-
-import org.openqa.selenium.By;
-import org.testng.Assert;
 import org.testng.annotations.Test;
-
 import static org.testng.Assert.assertEquals;
 
 public class LoginTest extends BaseTest{
@@ -23,7 +19,7 @@ public class LoginTest extends BaseTest{
         loginPage.login("standard_user", "");
         assertEquals(loginPage.getErrorMessage(),
                 "Epic sadface: Password is required",
-                "SO BAAAAD");
+                "Логин не выполнен");
     }
 
     @Test
@@ -32,6 +28,15 @@ public class LoginTest extends BaseTest{
         loginPage.login("standard_user", "1243143143");
         assertEquals(loginPage.getErrorMessage(),
                 "Epic sadface: Username and password do not match any user in this service",
-                "SO BAAAAD");
+                "Логин не выполнен");
+    }
+
+    @Test
+    public void checkLoginWithEmptyUser() {
+        loginPage.open();
+        loginPage.login("", "");
+        assertEquals(loginPage.getErrorMessage(),
+                "Epic sadface: Username is required",
+                "Логин не выполнен");
     }
 }
