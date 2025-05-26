@@ -3,24 +3,30 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.testng.ITestResult;
 import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
 import pages.CartPage;
 import pages.LoginPage;
 import pages.ProductsPage;
+import utils.AllureUtils;
+import utils.TestListener;
 import java.time.Duration;
 import java.util.HashMap;
 
 @Listeners(TestListener.class)
 public class BaseTest {
+
     WebDriver driver;
     SoftAssert softAssert;
     LoginPage loginPage;
     ProductsPage productsPage;
     CartPage cartPage;
+    String user = System.getProperty("user");
+    String password = System.getProperty("password");
 
     @Parameters({"browser"})
-    @BeforeMethod (alwaysRun = true)
+    @BeforeMethod (alwaysRun = true, description = "Открытие браузера")
     public void setup(@Optional("chrome") String browser) {
         if (browser.equalsIgnoreCase("chrome")){
             ChromeOptions options = new ChromeOptions();
@@ -44,8 +50,11 @@ public class BaseTest {
         cartPage = new CartPage(driver);
     }
 
-    @AfterMethod(alwaysRun = true)
-    public void tearDown() {
+    @AfterMethod(alwaysRun = true, description = "Закрытие браузера")
+    public void tearDown(ITestResult result) {
+        if (result.FAILURE == result.getStatus()) {
+            AllureUtils.takeScreenshot(driver);
+        }
         driver.quit();
     }
 }

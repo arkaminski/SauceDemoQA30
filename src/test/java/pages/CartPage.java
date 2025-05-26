@@ -1,4 +1,5 @@
 package pages;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,14 +16,17 @@ public class CartPage extends BasePage {
         super(driver);
         }
 
+    @Step("Открытие страницы Корзина")
     public void open() {
         driver.get(BASE_URL + "/cart.html");
         }
 
+    @Step("Нажатие 'удалить' на странице корзины")
     public void remove() {
         driver.findElement(REMOVE_BUTTON).click();
         }
 
+    @Step("Нажатие 'Continue Shopping' на странице корзины")
     public void continueShopping() {
         driver.findElement(CONTINUE_SHOPPING).click();
     }
